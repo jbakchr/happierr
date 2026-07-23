@@ -1,31 +1,52 @@
 # ROADMAP
 
-happierr is a CLI tool that translates technical failures into human encouragement.
+happierr is a CLI tool that helps developers understand errors.
 
-The goal is not to hide errors.
+It does not hide errors.
 
-The goal is not to pretend mistakes do not exist.
+It does not replace stack traces.
 
-The goal is to help developers understand errors, learn from them, and remember that technical failures are a normal part of software development.
+It does not pretend mistakes do not exist.
+
+Its purpose is to help developers understand:
+
+- what happened
+- why it happened
+- what to try next
+
+while remembering:
+
+```text
+The code failed.
+
+Not the developer.
+```
 
 ---
 
 ## Project Vision
 
-Most developer tools report:
+Most developer tools focus on:
 
 ```text
 What went wrong?
 ```
 
-happierr tries to answer:
+happierr focuses on:
 
 ```text
-How can we respond to this error
-in a healthier and more constructive way?
+What happened?
+
+Why did it happen?
+
+What should I try next?
 ```
 
-The long-term vision is to create a tool that helps developers move from:
+The goal is not dependency.
+
+The goal is confidence.
+
+The long-term vision is to help developers move from:
 
 ```text
 Oh no.
@@ -36,22 +57,22 @@ to:
 ```text
 Okay.
 
-I understand what's happening.
-
-Let's fix it.
+I understand this.
 ```
 
-The purpose is not dependency.
+and eventually:
 
-The purpose is confidence.
+```text
+I already know what this error means.
+```
 
 ---
 
 ## Core Philosophy
 
-### The Code Failed
+### The Error Is Not The Developer
 
-Not The Developer
+Technical failures happen to everyone.
 
 Errors are not evidence that someone is a bad developer.
 
@@ -63,31 +84,21 @@ happierr should continuously reinforce this idea.
 
 ### Explain Before Fixing
 
-Many error messages are technically correct but difficult to understand.
+Before suggesting solutions, explain the problem.
 
-Before suggesting solutions, happierr should explain what the error means.
+Understanding creates confidence.
+
+Confidence reduces panic.
 
 ---
 
-### Encourage Without Pretending
+### Preserve Before Interpreting
 
-happierr should never produce fake positivity.
+The original error should always remain visible.
 
-Bad:
+Trust comes from transparency.
 
-```text
-Everything is amazing!
-```
-
-Good:
-
-```text
-This error is common.
-
-Here's what happened.
-
-Here's what you can try next.
-```
+happierr should help developers understand errors without hiding them.
 
 ---
 
@@ -99,52 +110,46 @@ Not as evidence of failure.
 
 ---
 
-### Small Wins Matter
+### Encourage Without Pretending
 
-Many errors have simple solutions.
+Bad:
 
-happierr should help developers recognize progress rather than focusing only on failure.
+```text
+Everything is amazing!
+```
+
+Good:
+
+```text
+This is a common error.
+
+Here's what happened.
+
+Here's what you can try next.
+```
 
 ---
 
-## How happierr Works
-
-The basic workflow:
+## Current Architecture
 
 ```text
-Error
+stdin
     ↓
-Recognize
+pattern matching
     ↓
-Explain
+response creation
     ↓
-Encourage
-    ↓
-Suggest Next Step
+rendering
 ```
 
-Example:
+Current structure:
 
 ```text
-ModuleNotFoundError
-```
-
-becomes:
-
-```text
-Recognition
-
-↓
-
-Explanation
-
-↓
-
-Encouragement
-
-↓
-
-Possible Fix
+commands/
+patterns/
+messages/
+renderers/
+models/
 ```
 
 ---
@@ -153,35 +158,27 @@ Possible Fix
 
 Status:
 
-🟡 Planning
+🟢 Active Development
 
-Nothing implemented yet.
+Implemented:
 
----
+✅ CLI entry point
 
-## Development Phases
+✅ stdin support
 
-### Phase 1 — Recognize
+✅ Rich rendering
 
-Status:
+✅ response model
 
-🔲 Planned
+✅ original error preservation
 
-Goal:
+✅ structured explanations
 
-Recognize a small number of common Python errors.
-
-Focus on:
-
-- reliable matching
-- clear explanations
-- supportive messaging
+✅ colorized output
 
 ---
 
-#### Supported Errors
-
-Initial targets:
+### Supported Errors
 
 ✅ ModuleNotFoundError
 
@@ -193,9 +190,65 @@ Initial targets:
 
 ---
 
-#### Success Criteria
+### Current Output Structure
 
-A developer encounters one of these errors and immediately understands:
+```text
+Original Error
+
+↓
+
+Error Type
+
+↓
+
+What Happened
+
+↓
+
+Why This Happens
+
+↓
+
+What To Try Next
+```
+
+---
+
+## Development Roadmap
+
+### Phase 1 — Understand Errors
+
+Status:
+
+✅ In Progress
+
+Goal:
+
+Recognize common Python errors and explain them clearly.
+
+Current focus:
+
+✅ ModuleNotFoundError
+
+✅ ImportError
+
+✅ SyntaxError
+
+✅ FileNotFoundError
+
+Future candidates:
+
+- ValueError
+- TypeError
+- AttributeError
+- KeyError
+- NameError
+- IndexError
+- ZeroDivisionError
+
+Success Criteria:
+
+A developer immediately understands:
 
 - what happened
 - why it happened
@@ -203,50 +256,15 @@ A developer encounters one of these errors and immediately understands:
 
 ---
 
-### Phase 2 — Encourage
+### Phase 2 — Improve Explanations
 
 Status:
 
-🔲 Planned
+🟡 Next
 
 Goal:
 
-Introduce consistent encouragement patterns.
-
-Examples:
-
-```text
-🙂 Good news
-
-Python successfully identified
-the problem.
-```
-
-or:
-
-```text
-This is a common error.
-
-Most developers encounter it.
-```
-
----
-
-#### Success Criteria
-
-The user feels less overwhelmed after reading the output.
-
----
-
-### Phase 3 — Improve Explanations
-
-Status:
-
-🔲 Planned
-
-Goal:
-
-Provide richer context around common errors.
+Provide deeper explanations while remaining concise.
 
 Example:
 
@@ -259,20 +277,25 @@ Module not found.
 Explain:
 
 ```text
-Python attempted to import
-a package that is not available
-in the current environment.
+Python attempted to import a package
+that could not be found in the
+current environment.
 ```
 
+Potential additions:
+
+- clearer wording
+- more educational explanations
+- better mental models
+- related concepts
+
+Success Criteria:
+
+Understanding improves without increasing complexity.
+
 ---
 
-#### Success Criteria
-
-The user gains understanding instead of merely receiving instructions.
-
----
-
-### Phase 4 — Language Support
+### Phase 3 — Developer Learning Tool
 
 Status:
 
@@ -280,7 +303,109 @@ Status:
 
 Goal:
 
-Support additional programming languages.
+Turn common errors into learning opportunities.
+
+Example:
+
+```text
+ModuleNotFoundError
+
+Related Concepts
+
+• Python packages
+• pip
+• virtual environments
+```
+
+The objective is not only recovery.
+
+The objective is learning.
+
+Success Criteria:
+
+Developers gain transferable knowledge rather than merely solving the current error.
+
+---
+
+### Phase 4 — Error Library
+
+Status:
+
+🔲 Planned
+
+Goal:
+
+Allow developers to explore errors without first encountering them.
+
+Potential command:
+
+```bash
+happierr explain ModuleNotFoundError
+```
+
+Example use cases:
+
+```bash
+happierr explain SyntaxError
+
+happierr explain ImportError
+```
+
+Success Criteria:
+
+Developers can learn proactively instead of reactively.
+
+---
+
+### Phase 5 — Examples
+
+Status:
+
+🔲 Planned
+
+Goal:
+
+Provide examples of common mistakes that cause each error.
+
+Potential command:
+
+```bash
+happierr examples ModuleNotFoundError
+```
+
+Example output:
+
+```text
+Example 1
+
+import requests
+
+Package not installed.
+
+--------------------
+
+Example 2
+
+from panda import DataFrame
+
+Package name misspelled.
+```
+
+Success Criteria:
+
+Developers recognize common patterns before encountering them.
+
+---
+
+### Phase 6 — Language Expansion
+
+Status:
+
+🔲 Future
+
+Goal:
+
+Expand beyond Python.
 
 Potential languages:
 
@@ -293,140 +418,136 @@ Potential languages:
 
 Important:
 
-Language support should only be added after Python support feels solid.
+Python support should feel complete before additional languages are considered.
 
----
+Success Criteria:
 
-#### Success Criteria
-
-A developer can use happierr regardless of primary language.
-
----
-
-### Phase 5 — Teaching
-
-Status:
-
-🔲 Planned
-
-Goal:
-
-Use common errors as teaching opportunities.
-
-Example:
-
-```text
-ModuleNotFoundError
-```
-
-becomes:
-
-```text
-What is a Python package?
-
-Why are virtual environments useful?
-
-How does importing work?
-```
-
-The objective is not only error recovery.
-
-The objective is learning.
+happierr remains useful regardless of primary programming language.
 
 ---
 
 ## Future Ideas
 
-### Error Library
+These ideas are intentionally lower priority.
 
-```bash
-happierr explain SyntaxError
+### Related Concepts
+
+Show concepts connected to an error.
+
+Example:
+
+```text
+ModuleNotFoundError
+
+Related Concepts
+
+• packages
+• pip
+• virtual environments
 ```
 
-Learn about a specific error.
-
 ---
 
-### Error Examples
+### Error Collections
 
-```bash
-happierr examples
+Curated groups of common beginner errors.
+
+Examples:
+
+```text
+Import errors
+
+File errors
+
+Syntax errors
 ```
 
-See common examples.
+---
+
+### Onboarding Packs
+
+Potential use in teaching and onboarding.
+
+Not currently a focus.
 
 ---
 
-### Error Statistics
-
-```bash
-happierr stats
-```
-
-Explore encountered errors over time.
-
----
-
-### Team Sharing
-
-Export explanations for onboarding purposes.
-
----
-
-### AI-Assisted Explanations
-
-Potential future exploration.
-
-Not a current priority.
-
----
-
-## Non-Goals
+## Explicit Non-Goals
 
 happierr is NOT:
 
-- a debugger
 - an AI coding agent
+- a debugger
 - a compiler
 - a linter
 - a static analysis platform
 - a stack trace replacement
+- a code generation tool
+- an IDE
 
-happierr complements existing tooling.
+happierr complements existing tools.
 
-It does not replace it.
+It does not replace them.
 
 ---
 
-## Definition of Success
+## Things We Are Intentionally Avoiding
 
-A developer encounters an error and thinks:
+For now:
+
+❌ AI-generated explanations
+
+❌ automatic code fixes
+
+❌ debugging workflows
+
+❌ telemetry
+
+❌ error statistics
+
+❌ complex analysis engines
+
+Reason:
+
+These features move happierr away from its core purpose:
+
+```text
+Understanding > Panic
+```
+
+---
+
+## Definition Of Success
+
+A developer sees:
+
+```text
+Traceback...
+```
+
+runs:
+
+```bash
+happierr
+```
+
+and thinks:
 
 ```text
 Okay.
 
-I understand this.
-
-Let me try that.
-```
-
-instead of:
-
-```text
-Great.
-
-Another error.
-
-Now what?
+I understand what happened.
 ```
 
 Even greater success:
 
-Developers begin viewing technical failures as normal parts of learning rather than evidence that they are not good enough.
+The developer begins recognizing and understanding common errors before running happierr.
 
-The ultimate goal is not happier terminals.
+The goal is not dependency.
 
-The ultimate goal is more confident developers.
+The goal is growth.
+
+The best outcome is that developers internalize the explanations and confidence that happierr helps provide.
 
 Because:
 
