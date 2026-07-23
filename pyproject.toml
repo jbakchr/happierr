@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=69.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "happierr"
+version = "0.1.0"
+description = "Translate technical failures into human encouragement."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+
+authors = [
+    { name = "Jonas Bak Phillipson" }
+]
+
+dependencies = [
+    "typer>=0.16.0",
+    "rich>=14.0.0",
+]
+
+[project.scripts]
+happierr = "happierr.cli:app"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
