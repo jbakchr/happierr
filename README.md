@@ -10,7 +10,13 @@ It doesn't pretend mistakes don't matter.
 
 It doesn't tell developers that everything is fine.
 
-Instead, happierr explains what happened, reminds developers that errors are a normal part of software development, and helps them take the next step.
+Instead, happierr helps developers understand:
+
+- what happened
+- why it happened
+- what to try next
+
+while also reminding them that errors are a normal part of software development.
 
 ---
 
@@ -59,58 +65,48 @@ Errors are evidence that someone is developing.
 
 ## What happierr Does
 
-Given an error message:
+Given a Python error such as:
 
 ```text
 ModuleNotFoundError:
 No module named 'requests'
 ```
 
-happierr might produce:
+happierr preserves the original error and then explains it in a friendlier and more actionable format.
+
+Example:
 
 ```text
-🙂 Good news
+╭──────────── Original Error ────────────╮
+│ ModuleNotFoundError:                   │
+│ No module named 'requests'             │
+╰────────────────────────────────────────╯
 
-Python successfully identified
-the problem.
-
-The module "requests"
-isn't installed.
-
-This is one of the most common
-Python errors developers encounter.
-
-Try:
-
-pip install requests
-
-You're likely only one command
-away from resolving this issue.
+╭───────────── happierr ─────────────────╮
+│ 🙂 Good news                           │ 
+│                                        │
+│ Error Type                             │
+│ ModuleNotFoundError                    │
+│                                        │
+│ What Happened                          │
+│ → Python attempted to import a         │
+│   module that could not be found.      │
+│                                        │
+│ → The module "requests" is not         │
+│   installed.                           │
+│                                        │
+│ Why This Happens                       │
+│ → This is one of the most common       │
+│   Python errors developers encounter.  │
+│                                        │
+│ What To Try Next                       │
+│ → pip install requests                 │
+╰────────────────────────────────────────╯
 ```
 
-The goal is to transform:
+The goal is not to replace the original error.
 
-```text
-Error
-```
-
-into:
-
-```text
-Understanding
-```
-
-and
-
-```text
-Discouragement
-```
-
-into:
-
-```text
-Encouragement
-```
+The goal is to help developers understand it.
 
 ---
 
@@ -162,9 +158,57 @@ happierr treats errors as learning opportunities rather than evidence of failure
 
 ---
 
+### Preserve The Original Error
+
+Errors contain useful information.
+
+happierr should help developers understand errors, not hide them.
+
+The original error is displayed alongside happierr's interpretation.
+
+---
+
+## Current Workflow
+
+happierr follows a simple workflow:
+
+```text
+Error
+    ↓
+Recognize
+    ↓
+Explain
+    ↓
+Encourage
+    ↓
+Suggest Next Step
+```
+
+For example:
+
+```text
+ModuleNotFoundError
+```
+
+becomes:
+
+```text
+What Happened
+
+↓
+
+Why This Happens
+
+↓
+
+What To Try Next
+```
+
+---
+
 ## Example Usage
 
-Run a program and pipe its output into happierr:
+Pipe output directly into happierr:
 
 ```bash
 python app.py 2>&1 | happierr
@@ -178,18 +222,57 @@ happierr < error.txt
 
 ---
 
-## Initial Scope
+## Current Features
 
-Version 1 focuses on Python.
+### Error Recognition
 
-Examples:
+✅ ModuleNotFoundError
 
-- ModuleNotFoundError
+---
+
+### Error Explanation
+
+✅ Explain what happened
+
+✅ Explain why it happened
+
+✅ Explain what to try next
+
+---
+
+### Encouragement
+
+✅ Friendly and supportive language
+
+✅ Error normalization
+
+✅ Learning-oriented explanations
+
+---
+
+### Terminal Output
+
+✅ Preserve original error
+
+✅ Colorized output
+
+✅ Rich panels
+
+✅ Structured sections
+
+---
+
+## Current Scope
+
+Version 1 currently focuses on Python.
+
+Planned support includes:
+
 - ImportError
 - SyntaxError
 - FileNotFoundError
 
-Future versions may support additional languages:
+Future versions may support:
 
 - JavaScript
 - TypeScript
@@ -212,9 +295,11 @@ happierr aims to:
 
 ✅ encourage learning
 
-✅ remind developers that errors are normal
+✅ normalize technical failures
 
 ✅ bring a little more humanity to terminal output
+
+✅ help developers build confidence
 
 ---
 
@@ -226,12 +311,13 @@ happierr is NOT:
 - an automated debugging tool
 - an IDE
 - a compiler replacement
-- a stack trace analyzer
-- a tool that hides errors
+- a stack trace replacement
+- a linter
+- a static analysis platform
 
 The original error remains important.
 
-happierr simply helps developers respond to it.
+happierr simply helps developers understand it.
 
 ---
 
@@ -259,7 +345,7 @@ Oh no.
 What now?
 ```
 
-If happierr can make even a few developers feel a little more confident when facing technical problems, it has achieved its purpose.
+If happierr can help even a few developers feel more confident when facing technical problems, it has achieved its purpose.
 
 ---
 
@@ -267,9 +353,7 @@ If happierr can make even a few developers feel a little more confident when fac
 
 Software development already has plenty of tools that point out what is wrong.
 
-happierr exists to help developers remember that making mistakes is a normal part of learning, building, and growing.
-
-Because:
+happierr exists to help developers understand what went wrong while remembering something equally important:
 
 ```text
 The code failed.
