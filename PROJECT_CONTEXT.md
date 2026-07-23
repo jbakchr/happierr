@@ -2,7 +2,7 @@
 
 ## 🧠 What This Project Is
 
-happierr is a CLI tool that translates technical failures into human encouragement.
+happierr is a CLI tool that helps developers understand errors.
 
 The focus is NOT:
 
@@ -61,7 +61,7 @@ The code failed.
 Not the developer.
 ```
 
-This is the most important idea in the project.
+This is the single most important idea in the project.
 
 ---
 
@@ -75,6 +75,8 @@ SyntaxError
 ImportError
 
 ModuleNotFoundError
+
+FileNotFoundError
 
 Build failed
 
@@ -119,7 +121,7 @@ Explain
 Suggest Next Step
 ```
 
-The current output structure is:
+Current output structure:
 
 ```text
 Original Error
@@ -141,7 +143,7 @@ Why This Happens
 What To Try Next
 ```
 
-This workflow is becoming the foundation of the project.
+This workflow is the foundation of the project.
 
 ---
 
@@ -157,25 +159,24 @@ happierr should help developers understand errors.
 
 It should never pretend errors do not matter.
 
-For example:
-
 Good:
 
 ```text
 Original Error
 
-ModuleNotFoundError:
-No module named 'requests'
+ImportError:
+cannot import name 'potato'
 
 happierr
 
-Error Type:
-ModuleNotFoundError
+Error Type
+
+ImportError
 
 What Happened
 
-→ Python attempted to import
-  a module that could not be found.
+Python successfully found the module,
+but could not import the requested name.
 ```
 
 Bad:
@@ -193,6 +194,8 @@ The second distracts.
 ---
 
 ## 🧠 Current Architecture
+
+Current structure:
 
 ```text
 commands/
@@ -223,11 +226,21 @@ build response
 render output
 ```
 
+Current implementation deliberately favors simplicity over abstraction.
+
+The project follows a strong:
+
+```text
+Avoid Overengineering
+```
+
+principle.
+
 ---
 
 ## 🔁 Current Workflow
 
-### Run a program
+### Run a Program
 
 ```bash
 python app.py 2>&1 | happierr
@@ -238,30 +251,56 @@ Produces:
 ```text
 Original Error
 
-happierr
+↓
 
 Error Type
 
+↓
+
 What Happened
+
+↓
 
 Why This Happens
 
+↓
+
 What To Try Next
+```
+
+Or:
+
+```bash
+happierr < error.txt
 ```
 
 ---
 
 ## 🧪 Current State
 
-happierr currently supports:
+### CLI
+
+✅ installable command
+
+✅ stdin support
+
+✅ Typer entry point
+
+---
 
 ### Error Recognition
 
 ✅ ModuleNotFoundError
 
+✅ ImportError
+
+✅ SyntaxError
+
+✅ FileNotFoundError
+
 ---
 
-### Explanation
+### Error Interpretation
 
 ✅ Error Type
 
@@ -282,26 +321,6 @@ happierr currently supports:
 ✅ Original error preservation
 
 ✅ Structured terminal output
-
----
-
-### CLI
-
-✅ stdin support
-
-✅ installable command
-
-Current usage:
-
-```bash
-python app.py 2>&1 | happierr
-```
-
-or:
-
-```bash
-happierr < error.txt
-```
 
 ---
 
@@ -381,9 +400,7 @@ Not as evidence of failure.
 
 ### Reduce Panic
 
-Developers often encounter unfamiliar errors.
-
-The output should help them move from:
+The output should help developers move from:
 
 ```text
 Oh no.
@@ -429,6 +446,10 @@ Not the developer.
 
 ✅ The project is becoming an error interpreter rather than an error formatter
 
+✅ Education creates more value than reassurance alone
+
+✅ Simplicity is helping development move faster
+
 ---
 
 ## 🎯 Current Phase
@@ -436,7 +457,7 @@ Not the developer.
 happierr is currently in:
 
 ```text
-PHASE 1 - UNDERSTAND
+PHASE 1 – UNDERSTAND ERRORS
 ```
 
 Implemented:
@@ -445,22 +466,28 @@ Implemented:
 
 ✅ stdin support
 
-✅ ModuleNotFoundError recognition
+✅ Rich rendering
 
 ✅ structured explanations
 
-✅ Rich rendering
-
 ✅ original error preservation
+
+✅ ModuleNotFoundError
+
+✅ ImportError
+
+✅ SyntaxError
+
+✅ FileNotFoundError
 
 Current focus:
 
-- ImportError
-- SyntaxError
-- FileNotFoundError
-- richer explanations
-- explain command
-- examples command
+- improve explanation quality
+- improve educational value
+- add more common Python errors
+- implement explain command
+- implement examples command
+- strengthen learning-oriented features
 
 ---
 
@@ -510,6 +537,33 @@ happierr is NOT:
 - a stack trace replacement
 - a code generation tool
 - an IDE
+- an automated fixing tool
+
+---
+
+## 🚫 Things We Intentionally Avoid
+
+For now:
+
+❌ AI-generated explanations
+
+❌ automatic code fixes
+
+❌ debugging workflows
+
+❌ telemetry
+
+❌ error statistics
+
+❌ complex analysis engines
+
+Reason:
+
+```text
+Understanding > Panic
+```
+
+must remain the central design principle.
 
 ---
 
@@ -558,7 +612,7 @@ Build failed
 Tests failed
 ```
 
-While those messages are often technically correct, they can sometimes feel discouraging.
+While those messages are often technically correct, they can still feel discouraging.
 
 happierr exists partly because of a belief that developers need more than error messages.
 
@@ -596,13 +650,17 @@ I understand what happened.
 
 Even greater success:
 
-The developer begins recognizing and understanding common errors before running happierr.
+```text
+I already know what this error means.
+```
+
+because they learned it from previous encounters.
 
 The goal is not dependency.
 
 The goal is growth.
 
-The best outcome is that one day developers no longer need happierr because they have internalized the explanations and confidence that happierr helped build.
+The best possible outcome is that developers eventually need happierr less because they have internalized the understanding it helped build.
 
 ---
 
@@ -618,6 +676,8 @@ The best outcome is that one day developers no longer need happierr because they
 - Keep the original error visible
 - Focus on understanding rather than fixing
 - Help developers learn from errors
+- Prefer educational value over feature count
+- Preserve simplicity whenever possible
 
 ---
 
@@ -633,13 +693,19 @@ I'm working on this project:
 Help me evolve it without overengineering.
 ```
 
-The most important thing to remember:
+The most important things to remember:
 
-happierr is not a debugging tool.
+```text
+happierr is not a debugger.
 
 happierr is not a fixer.
 
 happierr is not an AI coding agent.
+
+happierr is an error interpreter.
+
+happierr is becoming a developer learning tool.
+```
 
 Its purpose is to help developers understand errors.
 
@@ -647,12 +713,15 @@ Its purpose is to reduce panic through understanding.
 
 Its purpose is to remind developers that:
 
+```text
 The code failed.
 
 Not the developer.
+```
 
 The most important workflow is:
 
+```text
 Error
 ↓
 Recognize
@@ -662,3 +731,4 @@ Interpret
 Explain
 ↓
 Suggest Next Step
+```
