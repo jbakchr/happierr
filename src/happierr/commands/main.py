@@ -16,6 +16,14 @@ from happierr.patterns.import_error import (
     matches as matches_import_error,
 )
 
+from happierr.messages.syntax_error import (
+    build_response as build_syntax_error_response,
+)
+
+from happierr.patterns.syntax_error import (
+    matches as matches_syntax_error,
+)
+
 from happierr.renderers.console_renderer import (
     render,
 )
@@ -38,6 +46,16 @@ def run() -> None:
     if matches_import_error(error_text):
 
         response = build_import_error_response(
+            error_text
+        )
+
+        render(response)
+
+        return
+
+    if matches_syntax_error(error_text):
+
+        response = build_syntax_error_response(
             error_text
         )
 
