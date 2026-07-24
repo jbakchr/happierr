@@ -289,6 +289,144 @@ happierr explain TypeError
 
 ---
 
+# Usage Examples
+
+## Interpret an Error
+
+Run a program and pipe the output into happierr:
+
+```bash
+python app.py 2>&1 | happierr
+```
+
+Example:
+
+```bash
+python broken.py 2>&1 | happierr
+```
+
+happierr preserves the original error and explains:
+
+- what happened
+- why it happened
+- what to try next
+
+---
+
+## Explain an Error
+
+Learn about a specific Python error:
+
+```bash
+happierr explain TypeError
+```
+
+or:
+
+```bash
+happierr explain ModuleNotFoundError
+```
+
+Each guide includes:
+
+- What Is It
+- Mental Model
+- Common Causes
+- What To Try Next
+- Related Concepts
+
+Example:
+
+```bash
+happierr explain KeyError
+```
+
+---
+
+## Browse Available Guides
+
+See all currently available error guides:
+
+```bash
+happierr errors
+```
+
+This displays the supported learning guides grouped by category.
+
+Example:
+
+```bash
+happierr errors
+```
+
+---
+
+## Learn Before Encountering An Error
+
+happierr can be used proactively as a learning tool.
+
+For example:
+
+```bash
+happierr errors
+```
+
+followed by:
+
+```bash
+happierr explain ValueError
+```
+
+allows developers to learn about common errors before they encounter them in real projects.
+
+---
+
+## Read Saved Errors
+
+Interpret a saved traceback or error log:
+
+```bash
+happierr < error.txt
+```
+
+Useful when:
+
+- sharing errors
+- reviewing logs
+- learning from previous failures
+
+---
+
+## Example Learning Workflow
+
+```bash
+happierr errors
+```
+
+Find an interesting error:
+
+```bash
+happierr explain TypeError
+```
+
+Encounter the error in real code:
+
+```bash
+python app.py 2>&1 | happierr
+```
+
+Result:
+
+```text
+Error
+    ↓
+Understanding
+    ↓
+Learning
+```
+
+---
+
 # Supported Error Guides
 
 Currently included:
