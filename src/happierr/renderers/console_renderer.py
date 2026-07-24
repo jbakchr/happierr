@@ -3,6 +3,7 @@ from rich.panel import Panel
 
 from happierr.models.response import Response
 from happierr.models.error_guide import ErrorGuide
+from happierr.messages.guides import ERROR_GUIDES
 
 console = Console()
 
@@ -112,4 +113,74 @@ Remember
             border_style="green",
         )
     )
+    console.print()
+
+
+def render_error_library() -> None:
+    console.print()
+
+    content = f"""
+[bold green]Available Error Guides[/bold green]
+
+[italic green]happierr[/italic green] currently includes [bold]{len(ERROR_GUIDES)}[/bold] explanations and learning guides for the following Python errors.
+
+
+Import Errors
+─────────────
+
+• ModuleNotFoundError
+• ImportError
+
+
+Language Errors
+───────────────
+
+• SyntaxError
+• NameError
+
+
+Type & Value Errors
+───────────────────
+
+• TypeError
+• ValueError
+
+
+Object & Collection Errors
+──────────────────────────
+
+• AttributeError
+• KeyError
+• IndexError
+
+
+File Errors
+───────────
+
+• FileNotFoundError
+
+
+Try
+───
+
+happierr explain TypeError
+
+
+Remember
+────────
+
+Understanding reduces panic.
+
+[italic]The code failed. Not the developer.[/italic]
+"""
+    
+    console.print(
+        Panel(
+            content,
+            title="[bold green]happierr[/bold green]",
+            expand=True,
+            border_style="green",
+        )
+    )
+
     console.print()

@@ -1,22 +1,7 @@
-import typer
-
-from happierr.messages.guides import ERROR_GUIDES
+from happierr.renderers.console_renderer import (
+    render_error_library,
+)
 
 
 def errors() -> None:
-    guides = "\n".join(
-        f"• {name}"
-        for name in sorted(ERROR_GUIDES)
-    )
-
-    typer.echo(
-        f"""
-Available Error Guides
-
-{guides}
-
-Example
-
-happierr explain TypeError
-""".strip()
-    )
+    render_error_library()
