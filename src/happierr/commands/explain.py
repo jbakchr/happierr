@@ -7,26 +7,6 @@ from happierr.renderers.console_renderer import (
 
 
 def explain(error_name: str) -> None:
-    if error_name.lower() == "list":
-        guides = "\n".join(
-            f"• {name}"
-            for name in sorted(ERROR_GUIDES)
-        )
-
-        typer.echo(
-            f"""
-Available Error Guides
-
-{guides}
-
-Example
-
-happierr explain ModuleNotFoundError
-"""
-        )
-
-        return
-
     guide = ERROR_GUIDES.get(error_name)
 
     if guide is None:
@@ -36,7 +16,7 @@ happierr explain ModuleNotFoundError
 
         typer.echo(
             "Run:\n"
-            "  happierr explain list\n"
+            "  happierr errors\n"
             "to see available error guides."
         )
 
