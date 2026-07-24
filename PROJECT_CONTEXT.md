@@ -4,6 +4,10 @@
 
 happierr is a CLI tool that helps developers understand errors.
 
+The project started as an error interpreter.
+
+It is gradually evolving into a developer learning tool centered around software errors.
+
 The focus is NOT:
 
 - hiding errors
@@ -28,6 +32,8 @@ The focus IS:
 ✅ helping developers take the next step
 
 ✅ encouraging learning instead of judgement
+
+✅ helping developers build mental models
 
 ✅ reminding developers that errors are normal
 
@@ -78,6 +84,12 @@ ModuleNotFoundError
 
 FileNotFoundError
 
+TypeError
+
+ValueError
+
+AttributeError
+
 Build failed
 
 Tests failed
@@ -85,7 +97,7 @@ Tests failed
 Unexpected exception
 ```
 
-These messages are often factually correct.
+These messages are often technically correct.
 
 But over time they can feel like:
 
@@ -105,9 +117,9 @@ There are far fewer tools that help developers understand what happened without 
 
 ---
 
-## 🧠 Core Workflow
+## 🧠 Core Workflows
 
-happierr follows a simple workflow:
+### Error Interpretation
 
 ```text
 Error
@@ -143,7 +155,29 @@ Why This Happens
 What To Try Next
 ```
 
-This workflow is the foundation of the project.
+---
+
+### Error Learning
+
+```text
+Browse
+    ↓
+Learn
+    ↓
+Understand
+```
+
+Example:
+
+```bash
+happierr errors
+```
+
+```bash
+happierr explain TypeError
+```
+
+This workflow is becoming increasingly important.
 
 ---
 
@@ -205,7 +239,8 @@ patterns/
     Error recognition
 
 messages/
-    Error interpretation
+    Error explanations
+    Error guides
 
 renderers/
     Display output
@@ -214,16 +249,24 @@ models/
     Shared data structures
 ```
 
-Current workflow:
+Current workflows:
 
 ```text
 stdin
     ↓
 pattern matching
     ↓
-build response
+response creation
     ↓
-render output
+rendering
+```
+
+and:
+
+```text
+Error Guide
+    ↓
+Rendering
 ```
 
 Current implementation deliberately favors simplicity over abstraction.
@@ -238,40 +281,68 @@ principle.
 
 ---
 
-## 🔁 Current Workflow
+## 🔁 Current Commands
 
-### Run a Program
+### Interpret an Error
 
 ```bash
 python app.py 2>&1 | happierr
+```
+
+or:
+
+```bash
+happierr < error.txt
 ```
 
 Produces:
 
 ```text
 Original Error
-
 ↓
-
 Error Type
-
 ↓
-
 What Happened
-
 ↓
-
 Why This Happens
-
 ↓
-
 What To Try Next
 ```
 
-Or:
+---
+
+### Browse Available Guides
 
 ```bash
-happierr < error.txt
+happierr errors
+```
+
+Shows all available learning guides grouped by category.
+
+---
+
+### Learn About an Error
+
+```bash
+happierr explain TypeError
+```
+
+Produces:
+
+```text
+Error Type
+
+What Is It
+
+Mental Model
+
+Common Causes
+
+What To Try Next
+
+Related Concepts
+
+Remember
 ```
 
 ---
@@ -286,9 +357,13 @@ happierr < error.txt
 
 ✅ Typer entry point
 
+✅ explain command
+
+✅ errors command
+
 ---
 
-### Error Recognition
+### Error Interpretation
 
 ✅ ModuleNotFoundError
 
@@ -300,15 +375,43 @@ happierr < error.txt
 
 ---
 
-### Error Interpretation
+### Error Guides
 
-✅ Error Type
+✅ ModuleNotFoundError
 
-✅ What Happened
+✅ ImportError
 
-✅ Why This Happens
+✅ SyntaxError
 
-✅ What To Try Next
+✅ FileNotFoundError
+
+✅ TypeError
+
+✅ ValueError
+
+✅ NameError
+
+✅ AttributeError
+
+✅ KeyError
+
+✅ IndexError
+
+---
+
+### Educational Features
+
+✅ Mental Models
+
+✅ Common Causes
+
+✅ Related Concepts
+
+✅ Suggested Next Steps
+
+✅ Error Categories
+
+✅ Error Library
 
 ---
 
@@ -316,11 +419,13 @@ happierr < error.txt
 
 ✅ Rich panels
 
-✅ Colorized output
+✅ Consistent visual identity
 
 ✅ Original error preservation
 
 ✅ Structured terminal output
+
+✅ Learning-oriented formatting
 
 ---
 
@@ -348,6 +453,16 @@ Understanding
 Action
 ```
 
+and increasingly:
+
+```text
+Error
+    ↓
+Understanding
+    ↓
+Learning
+```
+
 The goal is not to make errors disappear.
 
 The goal is to make them easier to understand.
@@ -365,6 +480,12 @@ Explain the problem before suggesting solutions.
 ### Preserve Before Interpreting
 
 Show the original error before displaying happierr's interpretation.
+
+---
+
+### Learning Before Memorization
+
+Build understanding rather than teaching error-specific hacks.
 
 ---
 
@@ -436,17 +557,17 @@ Not the developer.
 
 ✅ Understanding reduces frustration
 
-✅ Rich formatting dramatically improves readability
+✅ Rich formatting improves readability
 
 ✅ Friendly language is more effective than fake positivity
 
-✅ Small improvements in error comprehension can increase confidence
+✅ Mental models are more valuable than fixes
 
-✅ Errors are often easier to solve once properly understood
+✅ Education creates more value than reassurance
 
-✅ The project is becoming an error interpreter rather than an error formatter
+✅ Error categories help users build knowledge structures
 
-✅ Education creates more value than reassurance alone
+✅ The project is becoming a learning tool rather than merely an interpreter
 
 ✅ Simplicity is helping development move faster
 
@@ -457,36 +578,32 @@ Not the developer.
 happierr is currently in:
 
 ```text
-PHASE 1 – UNDERSTAND ERRORS
+PHASE 2 – ERROR LEARNING TOOL
 ```
 
 Implemented:
 
-✅ CLI entry point
+✅ Error interpretation
 
-✅ stdin support
+✅ Error Guides
 
-✅ Rich rendering
+✅ happierr explain
 
-✅ structured explanations
+✅ happierr errors
 
-✅ original error preservation
+✅ Mental Models
 
-✅ ModuleNotFoundError
+✅ Common Causes
 
-✅ ImportError
-
-✅ SyntaxError
-
-✅ FileNotFoundError
+✅ Related Concepts
 
 Current focus:
 
 - improve explanation quality
 - improve educational value
+- improve consistency across guides
+- add examples command
 - add more common Python errors
-- implement explain command
-- implement examples command
 - strengthen learning-oriented features
 
 ---
@@ -587,6 +704,8 @@ This is:
 
 ✅ a developer experience project
 
+✅ a growing error learning library
+
 Designed to:
 
 - reduce fear
@@ -650,11 +769,17 @@ I understand what happened.
 
 Even greater success:
 
+```bash
+happierr explain TypeError
+```
+
+and later thinks:
+
 ```text
 I already know what this error means.
 ```
 
-because they learned it from previous encounters.
+because they learned it previously.
 
 The goal is not dependency.
 
@@ -670,6 +795,7 @@ The best possible outcome is that developers eventually need happierr less becau
 - Avoid overengineering
 - Protect the project's educational philosophy
 - Improve explanations
+- Improve mental models
 - Improve developer experience
 - Maintain transparency
 - Challenge unnecessary complexity
@@ -711,6 +837,8 @@ Its purpose is to help developers understand errors.
 
 Its purpose is to reduce panic through understanding.
 
+Its purpose is to help developers learn.
+
 Its purpose is to remind developers that:
 
 ```text
@@ -719,7 +847,7 @@ The code failed.
 Not the developer.
 ```
 
-The most important workflow is:
+The two most important workflows are:
 
 ```text
 Error
@@ -731,4 +859,14 @@ Interpret
 Explain
 ↓
 Suggest Next Step
+```
+
+and:
+
+```text
+Browse
+↓
+Learn
+↓
+Understand
 ```
